@@ -37,7 +37,7 @@ address public admin;
 | Function         | Description                      |
 | ---------------- | -------------------------------- |
 | `addition()`     | Adds two numbers                 |
-| `substraction()` | Subtracts two numbers            |
+| `subtraction()` | Subtracts two numbers            |
 | `multiplier()`   | Multiplies two numbers           |
 | `division()`     | Divides two numbers (admin only) |
 
