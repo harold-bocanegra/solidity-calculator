@@ -8,13 +8,14 @@ The project focuses on Solidity fundamentals, smart contract testing, access con
 
 The `Calculator` smart contract supports:
 
-* Addition
-* Subtraction
-* Multiplication
-* Division
-* Persistent storage of the last calculated result
-* Admin-restricted division function
-* Custom errors for better gas efficiency and readability
+* Addition, subtraction, multiplication and division operations.
+* Admin-restricted division using a custom modifier.
+* Custom errors for gas-efficient reverts.
+* Event emission for operations.
+* Admin transfer functionality.
+* Unit tests with Foundry.
+* Fuzz testing for division logic.
+* Event emission testing.
 
 ## Smart Contract Overview
 

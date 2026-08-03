@@ -7,7 +7,6 @@ import "forge-std/Test.sol";
 import "../src/Calculator.sol";
 
 contract CalculatorTest is Test {
-
     event Addition(uint256 firstNumber, uint256 secondNumber, uint256 result);
 
     event AdminTransferred(address indexed previousAdmin, address indexed newAdmin);
@@ -43,7 +42,7 @@ contract CalculatorTest is Test {
 
         vm.expectEmit(false, false, false, true);
 
-        emit Addition (firstNumber, secondNumber, firstNumber + secondNumber);
+        emit Addition(firstNumber, secondNumber, firstNumber + secondNumber);
 
         calculator.addition(firstNumber, secondNumber);
     }
@@ -107,7 +106,6 @@ contract CalculatorTest is Test {
         calculator.division(10, 0);
     }
 
-
     // ===== TransferAdmin =====
     function testAdminCanTransferAdmin() public {
         address newAdmin = vm.addr(3);
@@ -167,7 +165,9 @@ contract CalculatorTest is Test {
         calculator.division(firstNumber, 0);
     }
 
-    function testFuzz_DivisionRevertsWhenCallerIsNotAdmin(address caller, uint256 firstNumber, uint256 secondNumber) public {
+    function testFuzz_DivisionRevertsWhenCallerIsNotAdmin(address caller, uint256 firstNumber, uint256 secondNumber)
+        public
+    {
         vm.assume(caller != admin);
         vm.assume(secondNumber != 0);
 

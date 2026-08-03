@@ -17,7 +17,6 @@ error ZeroAddress();
  * @dev Demonstrates custom errors, access control and event emissions.
  */
 contract Calculator {
-
     uint256 public result;
     address public admin;
 
@@ -62,7 +61,7 @@ contract Calculator {
     /// @param firstNumber First operand.
     /// @param secondNumber Second operand.
     /// @return result_ The sum of both numbers.
-    function addition(uint256 firstNumber, uint256 secondNumber) external returns(uint256 result_) {
+    function addition(uint256 firstNumber, uint256 secondNumber) external returns (uint256 result_) {
         result_ = firstNumber + secondNumber;
         result = result_;
 
@@ -73,7 +72,7 @@ contract Calculator {
     /// @param firstNumber First operand.
     /// @param secondNumber Second operand.
     /// @return result_ The subtraction of both numbers.
-    function subtraction(uint256 firstNumber, uint256 secondNumber) external returns(uint256 result_) {
+    function subtraction(uint256 firstNumber, uint256 secondNumber) external returns (uint256 result_) {
         result_ = firstNumber - secondNumber;
         result = result_;
 
@@ -84,7 +83,7 @@ contract Calculator {
     /// @param firstNumber First operand.
     /// @param secondNumber Second operand.
     /// @return result_ The product of both numbers.
-    function multiplier(uint256 firstNumber, uint256 secondNumber) external returns(uint256 result_) {
+    function multiplier(uint256 firstNumber, uint256 secondNumber) external returns (uint256 result_) {
         result_ = firstNumber * secondNumber;
         result = result_;
 
@@ -96,7 +95,7 @@ contract Calculator {
     /// @param firstNumber First operand.
     /// @param secondNumber Second operand.
     /// @return result_ The division of both numbers.
-    function division(uint256 firstNumber, uint256 secondNumber) external onlyAdmin returns(uint256 result_) {
+    function division(uint256 firstNumber, uint256 secondNumber) external onlyAdmin returns (uint256 result_) {
         if (secondNumber == 0) {
             revert DivisionByZero();
         }
