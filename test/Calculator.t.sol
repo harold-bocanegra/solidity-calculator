@@ -8,6 +8,10 @@ import "../src/Calculator.sol";
 
 contract CalculatorTest is Test {
 
+    event Addition(uint256 firstNumber, uint256 secondNumber, uint256 result);
+
+    event AdminTransferred(address indexed previousAdmin, address indexed newAdmin);
+
     Calculator public calculator;
     uint256 public initialResult = 100;
     address public admin = vm.addr(1);
@@ -31,6 +35,17 @@ contract CalculatorTest is Test {
         uint256 actual = calculator.addition(firstNumber, secondNumber);
 
         assertEq(actual, firstNumber + secondNumber);
+    }
+
+    function testAdditionEmitsAdditionEvent() public {
+        uint256 firstNumber = 5;
+        uint256 secondNumber = 5;
+
+        vm.expectEmit(false, false, false, true);
+
+        emit Addition (firstNumber, secondNumber, firstNumber + secondNumber);
+
+        calculator.addition(firstNumber, secondNumber);
     }
 
     // ===== Subtraction =====
@@ -90,6 +105,48 @@ contract CalculatorTest is Test {
         vm.expectRevert(DivisionByZero.selector);
 
         calculator.division(10, 0);
+    }
+
+
+    // ===== TransferAdmin =====
+    function testAdminCanTransferAdmin() public {
+        address newAdmin = vm.addr(3);
+
+        vm.prank(admin);
+
+        calculator.transferAdmin(newAdmin);
+
+        assertEq(calculator.admin(), newAdmin);
+    }
+
+    function testCannotTransferAdminWhenCallerIsNotAdmin() public {
+        address newAdmin = vm.addr(3);
+
+        vm.prank(randomUser);
+
+        vm.expectRevert(OnlyAdminAllowed.selector);
+
+        calculator.transferAdmin(newAdmin);
+    }
+
+    function testCannotSetZeroAddressAsAdmin() public {
+        vm.prank(admin);
+
+        vm.expectRevert(ZeroAddress.selector);
+
+        calculator.transferAdmin(address(0));
+    }
+
+    function testChangeAdminEmitsEvent() public {
+        address newAdmin = vm.addr(3);
+
+        vm.prank(admin);
+
+        vm.expectEmit();
+
+        emit AdminTransferred(admin, newAdmin);
+
+        calculator.transferAdmin(newAdmin);
     }
 
     // ===== Fuzz tests =====
